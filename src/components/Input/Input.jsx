@@ -2,26 +2,26 @@ import React, { Fragment } from 'react';
 import './Input.css';
 
 const Input = (props) => {
-    const { 
+    const {
         type,
         name,
-        placeHolder,
+        placeholder,
         className,
         id,
         formilk,
-        value 
+        value
     } = props;
 
     return (
         <Fragment>
-            <label htmlFor={name}>{placeHolder}</label>
+            <label htmlFor={id}>{placeholder}</label>
             <input
                 type={type}
                 id={id}
                 autoComplete="off"
                 className={className + " form-control"}
                 name={name}
-                placeholder={props.placeholder}
+                placeholder={placeholder}
                 {...formilk.getFieldProps(name)}
                 value={value}
             />
