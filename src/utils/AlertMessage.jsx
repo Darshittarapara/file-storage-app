@@ -14,7 +14,7 @@ export const AlertMessage = async () => {
     return result
 }
 
-export const Message = async (icon: 'error' | "success" | "warning", title: string) => {
+export const Message = async (icon,title) => {
     const result = await Swal.fire({
         icon: icon,
         title: title

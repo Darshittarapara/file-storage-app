@@ -1,7 +1,6 @@
 import React from 'react'
-import { LayOutProps } from '../../Modal/Modal'
-import './WithAuthLayout.css';
-export const WithAuthLayout: React.FC<LayOutProps> = ({
+import './WithAuthLayout.scss';
+export const WithAuthLayout = ({
     component: Component
 }) => {
     return (

@@ -1,4 +1,4 @@
-import { getItem } from "helper/Storage";
+import { getItem } from "utils/Storage";
 import React, { Fragment } from "react";
 import AuthRouting from "./AuthRouting/AuthRouting";
 import PrivateRouting from "./PrivateRouting/PrivateRouting";

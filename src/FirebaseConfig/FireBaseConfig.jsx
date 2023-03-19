@@ -8,14 +8,15 @@ import { getAnalytics } from 'firebase/analytics'
 import { browserSessionPersistence, initializeAuth, browserPopupRedirectResolver } from 'firebase/auth';
 import { getDatabase } from "firebase/database";
 const firebaseConfig = {
-    apiKey: "AIzaSyC4G9wvfTvRcHhiknlMvGvuwbg7pmy70YI",
-    authDomain: "react-daily-expense-app.firebaseapp.com",
-    projectId: "react-daily-expense-app",
-    storageBucket: "react-daily-expense-app.appspot.com",
-    messagingSenderId: "747729783286",
-    appId: "1:747729783286:web:743e4574f7cc753f14dfd7",
-    measurementId: "G-LQQSC15FE2"
+    apiKey: "AIzaSyBvHpUbuva0Igu4pj_8l_1RjoKCgpgd4w8",
+    authDomain: "files-stroage-app.firebaseapp.com",
+    projectId: "files-stroage-app",
+    storageBucket: "files-stroage-app.appspot.com",
+    messagingSenderId: "439361129494",
+    appId: "1:439361129494:web:d62577477c863310353937",
+    measurementId: "G-MJ46F9HW72"
 };
+
 
 
 export const app = initializeApp(firebaseConfig);
