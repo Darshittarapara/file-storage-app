@@ -9,7 +9,6 @@ import { useLocation } from 'react-router-dom';
 const AuthRouting = () => {
     const navigator = useNavigate();
     const { pathname } = useLocation();
-    console.log(pathname)
     useEffect(() => {
         if (pathname === "/") {
             navigator("/login")

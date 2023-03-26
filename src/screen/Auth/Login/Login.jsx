@@ -9,6 +9,7 @@ import { ErrorMessage } from "../../../components/ErrorMessage/ErrorMessage";
 import { Strings } from "resource/Strings";
 import logo from '../../../assets/image/logo.png';
 import Logo from "components/Logo/Logo";
+
 export {
   logo
 }
@@ -28,7 +29,6 @@ const Login = () => {
     <div className="auth-contain">
       {formilk.errors.password && formilk.touched.password && <ErrorMessage message={formilk.errors.password} />}
       <Logo src={logo} text={Strings.fileStroage} />
-
       <form onSubmit={formilk.handleSubmit}>
         <div className="mb-3">
           <Input
