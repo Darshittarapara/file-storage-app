@@ -5,8 +5,8 @@
 
 import { initializeApp } from 'firebase/app';
 import { getAnalytics } from 'firebase/analytics'
-import { browserSessionPersistence, initializeAuth, browserPopupRedirectResolver } from 'firebase/auth';
-import { getDatabase } from "firebase/database";
+import { getDatabase, set, ref } from "firebase/database";
+import { getAuth, createUserWithEmailAndPassword } from 'firebase/auth';
 const firebaseConfig = {
     apiKey: process.env.REACT_APP_API_KEY,
     authDomain: process.env.REACT_APP_AUTH_DOMAIN,
@@ -18,8 +18,11 @@ const firebaseConfig = {
 };
 export const app = initializeApp(firebaseConfig);
 export const analytics = getAnalytics(app);
+export const auth = getAuth(app)
 export const db = getDatabase(app)
-export const auth = initializeAuth(app, {
-    persistence: browserSessionPersistence,
-    popupRedirectResolver: browserPopupRedirectResolver,
-});
+
+export {
+    createUserWithEmailAndPassword,
+    set,
+    ref
+}

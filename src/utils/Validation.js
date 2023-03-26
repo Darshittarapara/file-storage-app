@@ -15,7 +15,6 @@ export const authErrorHandler = (message) => {
     }
 }
 export const SignInPageSchema = Yup.object({
-
     password: Yup.string()
         .required('Please enter PIN number')
         .min(5, "Please enter minimum 5 characters")
@@ -54,7 +53,10 @@ export const SignUpSchema = Yup.object({
         .min(5, "Please enter minimum 5 characters")
         .max(10, "Please enter maximum 10 characters"),
     userName: Yup.string()
-        .required("please enter user name")
+        .required("please enter user name"),
+    email: Yup.string()
+        .required('Please enter email')
+        .email('Please enter vaild email')
 });
 
 export const AddIncomeSchema = Yup.object({

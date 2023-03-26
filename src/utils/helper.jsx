@@ -16,3 +16,11 @@ export const getCurrentMonth = (index) => {
   ];
   return monthNames[index]
 }
+
+export const setAuthError = (message) => {
+  let messageText = '';
+  if (message?.includes('auth/email-already-in-use')) {
+    messageText = "Email already register"
+  }
+  return messageText
+}
