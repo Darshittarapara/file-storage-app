@@ -1,5 +1,5 @@
 import { createSlice } from "@reduxjs/toolkit";
-import { userSignUpAction } from "./AuthAysncThunk";
+import { userSignInWithPasswordAction, userSignUpAction } from "./AuthAysncThunk";
 import { setAuthError } from "utils/helper";
 const initialState = {
     usersDetails: {},
@@ -13,6 +13,12 @@ const slice = createSlice({
     reducers: {
         signUp(state, action) {
             console.log(action);
+        },
+        resetErrorState(state) {
+            state.error = ''
+        },
+        cancelAuth(state) {
+            state.isAuth = false
         }
     },
     extraReducers: (builder) => {
@@ -22,6 +28,14 @@ const slice = createSlice({
             state.isAuth = true;
             state.isLoading = false;
         }).addCase(userSignUpAction.rejected, (state, action) => {
+            state.isLoading = false;
+            state.error = setAuthError(action?.error?.message)
+        }).addCase(userSignInWithPasswordAction.pending, (state, action) => {
+            state.isLoading = true
+        }).addCase(userSignInWithPasswordAction.fulfilled, (state, action) => {
+            state.isAuth = true;
+            state.isLoading = false;
+        }).addCase(userSignInWithPasswordAction.rejected, (state, action) => {
             state.isLoading = false;
             state.error = setAuthError(action?.error?.message)
         })

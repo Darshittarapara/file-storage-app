@@ -1,5 +1,5 @@
 import React from "react";
-import { NavLink } from "react-router-dom";
+import { NavLink, useNavigate } from "react-router-dom";
 import Button from "../../../components/Button/Button";
 import Input from '../../../components/Input/Input'
 import "../auth.css";
@@ -9,41 +9,71 @@ import { ErrorMessage } from "../../../components/ErrorMessage/ErrorMessage";
 import { Strings } from "resource/Strings";
 import logo from '../../../assets/image/logo.png';
 import Logo from "components/Logo/Logo";
+import { useDispatch, useSelector } from "react-redux";
+import { emailVerifyAcion, userSignInWithPasswordAction } from "redux/AuthSlice/AuthAysncThunk";
+import { useEffect } from "react";
+import { AuthActions } from "redux/AuthSlice/AuthSlice";
 
 export {
   logo
 }
 const Login = () => {
-
+  const navigate = useNavigate();
+  const { isLoading, error } = useSelector((state) => state.AuthStateData);
+  const dispatch = useDispatch();
   const formilk = useFormik({
     initialValues: {
-      password: ""
+      email: "",
+      password: ''
     },
     validationSchema: SignInPageSchema,
     onSubmit: (formValues) => {
-      console.log(formValues)
+      dispatch(userSignInWithPasswordAction(formValues)).then((res) => {
+        if (res?.payload?.status) {
+          navigate('/')
+        }
+      })
     }
   });
+  const { email, password } = formilk.values
+  useEffect(() => {
+    dispatch(AuthActions.resetErrorState())
+  }, [email, password, dispatch]);
 
   return (
     <div className="auth-contain">
-      {formilk.errors.password && formilk.touched.password && <ErrorMessage message={formilk.errors.password} />}
+      {error ? (
+        <ErrorMessage message={error} />
+      ) : <>
+        {formilk.errors.email && formilk.touched.email && <ErrorMessage message={formilk.errors.email} />}
+        {formilk.errors.password && formilk.touched.password && <ErrorMessage message={formilk.errors.password} />}
+      </>}
       <Logo src={logo} text={Strings.fileStroage} />
       <form onSubmit={formilk.handleSubmit}>
         <div className="mb-3">
           <Input
-            type="password"
-            id="password"
+            type="email"
+            id="email"
             formilk={formilk}
-            name="password"
+            name="email"
             className="form-control"
-            placeholder={Strings.enterPin}
-            value={formilk.values.password}
+            placeholder={Strings.enterEmail}
+            value={formilk.values.email}
           />
-
+          <div className="mb-3">
+            <Input
+              type="password"
+              id="password"
+              formilk={formilk}
+              name="password"
+              className="form-control"
+              placeholder={Strings.enterPin}
+              value={formilk.values.password}
+            />
+          </div>
         </div>
         <div className="mt-1">
-          <Button disable={!formilk.isValid || !formilk.dirty} type="submit" classes="authButton btn btn-primary">
+          <Button disable={!formilk.isValid || !formilk.dirty || isLoading} type="submit" classes="authButton btn btn-primary">
             {false ? <div className="spinner-border" role="status" /> : Strings.logIn}
           </Button>
         </div>

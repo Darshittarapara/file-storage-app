@@ -6,7 +6,7 @@
 import { initializeApp } from 'firebase/app';
 import { getAnalytics } from 'firebase/analytics'
 import { getDatabase, set, ref } from "firebase/database";
-import { getAuth, createUserWithEmailAndPassword } from 'firebase/auth';
+import { getAuth, createUserWithEmailAndPassword, sendSignInLinkToEmail } from 'firebase/auth';
 const firebaseConfig = {
     apiKey: process.env.REACT_APP_API_KEY,
     authDomain: process.env.REACT_APP_AUTH_DOMAIN,
@@ -24,5 +24,6 @@ export const db = getDatabase(app)
 export {
     createUserWithEmailAndPassword,
     set,
-    ref
+    ref,
+    sendSignInLinkToEmail
 }

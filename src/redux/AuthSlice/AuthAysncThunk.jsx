@@ -1,14 +1,13 @@
 import { createAsyncThunk } from "@reduxjs/toolkit";
-import { createUserWithEmailAndPassword } from "firebase/auth";
-import { auth, db } from "FirebaseConfig/FireBaseConfig";
+import { config } from "config/config";
+import { createUserWithEmailAndPassword, signInWithEmailAndPassword } from "firebase/auth";
+import { auth, db, sendSignInLinkToEmail, set, ref } from "FirebaseConfig/FireBaseConfig";
 import { setItem } from "utils/Storage";
-import { set, ref } from '../../FirebaseConfig/FireBaseConfig'
-import { USER, USER_ID } from '../../utils/const.js'
+import { USER, USER_ID, VERIFY_EMAIL } from '../../utils/const.js'
 export const userSignUpAction = createAsyncThunk(
     "auth/userSignUpAction",
     async (payload, { dispatch }) => {
         const response = await createUserWithEmailAndPassword(auth, payload.email, payload.password)
-        console.log(response?.user?.uid)
         if (response?.user?.uid) {
             setItem(USER, response)
             setItem(USER_ID, response?.user?.uid)
@@ -32,5 +31,39 @@ const saveUserDetails = createAsyncThunk(
         set(ref(db, `user/${userId}`), {
             displayName: userName,
         })
+    }
+)
+const actionCodeSettings = {
+    // URL you want to redirect back to. The domain (www.example.com) for this
+    // URL must be in the authorized domains list in the Firebase Console.
+    url: config.authEmailVerifyURL,
+    // This must be true.
+    handleCodeInApp: true,
+    dynamicLinkDomain: config.authEmailVerifyURL
+};
+console.log(actionCodeSettings)
+export const emailVerifyAcion = createAsyncThunk(
+    "auth/userSignUpAction",
+    async (payload, { dispatch }) => {
+        await sendSignInLinkToEmail(auth, payload, actionCodeSettings)
+        setItem(VERIFY_EMAIL, payload);
+        return true
+    }
+)
+
+export const userSignInWithPasswordAction = createAsyncThunk(
+    "auth/userSignInWithPasswordAction",
+    async (payload, { dispatch }) => {
+        const response = await signInWithEmailAndPassword(auth, payload.email, payload.password)
+        if (response?.user?.uid) {
+            setItem(USER, response)
+            setItem(USER_ID, response?.user?.uid)
+            return {
+                status: true
+            }
+        }
+        return {
+            status: false
+        }
     }
 )

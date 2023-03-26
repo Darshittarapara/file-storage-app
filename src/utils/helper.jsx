@@ -21,6 +21,11 @@ export const setAuthError = (message) => {
   let messageText = '';
   if (message?.includes('auth/email-already-in-use')) {
     messageText = "Email already register"
+  } else if (message?.includes("auth/user-not-found")) {
+    messageText = "Please register account"
+  } else if (message?.includes("(auth/wrong-password)")) {
+    messageText = "Please enter correct password"
   }
+
   return messageText
 }

@@ -1,4 +1,5 @@
-import React, { Fragment } from "react";
+import React, { Fragment, useEffect } from "react";
+import { AuthActions } from "redux/AuthSlice/AuthSlice";
 import Button from "../../../components/Button/Button";
 import Input from 'components/Input/Input';
 import { NavLink } from "react-router-dom";
@@ -40,7 +41,10 @@ const SignUp = () => {
       })
     }
   });
-
+  const { email } = formilk.values
+  useEffect(() => {
+    dispatch(AuthActions.resetErrorState())
+  }, [email, dispatch]);
 
   return (
     <Fragment>
