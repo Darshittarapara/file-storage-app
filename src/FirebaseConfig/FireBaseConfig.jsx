@@ -8,17 +8,14 @@ import { getAnalytics } from 'firebase/analytics'
 import { browserSessionPersistence, initializeAuth, browserPopupRedirectResolver } from 'firebase/auth';
 import { getDatabase } from "firebase/database";
 const firebaseConfig = {
-    apiKey: "AIzaSyBvHpUbuva0Igu4pj_8l_1RjoKCgpgd4w8",
-    authDomain: "files-stroage-app.firebaseapp.com",
-    projectId: "files-stroage-app",
-    storageBucket: "files-stroage-app.appspot.com",
-    messagingSenderId: "439361129494",
-    appId: "1:439361129494:web:d62577477c863310353937",
-    measurementId: "G-MJ46F9HW72"
+    apiKey: process.env.REACT_APP_API_KEY,
+    authDomain: process.env.REACT_APP_AUTH_DOMAIN,
+    projectId: process.env.REACT_APP_PROJECT_ID,
+    storageBucket: process.env.REACT_APP_STORAGE_BUCKET,
+    messagingSenderId: process.env.REACT_APP_MESSAGING_SENDER_ID,
+    appId: process.env.REACT_APP_MESSAGING_APP_ID,
+    measurementId: process.env.REACT_APP_MEASUREMENT_ID
 };
-
-
-
 export const app = initializeApp(firebaseConfig);
 export const analytics = getAnalytics(app);
 export const db = getDatabase(app)
