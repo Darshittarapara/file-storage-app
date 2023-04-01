@@ -5,6 +5,7 @@ export const AlertMessage = async () => {
         text: "You won't be able to revert this!",
         icon: 'warning',
         showCancelButton: true,
+        allowOutsideClick: false,
         confirmButtonColor: '#3085d6',
         cancelButtonColor: '#d33',
         confirmButtonText: 'Delete'
@@ -14,10 +15,11 @@ export const AlertMessage = async () => {
     return result
 }
 
-export const Message = async (icon,title) => {
+export const Message = async (icon, title) => {
     const result = await Swal.fire({
         icon: icon,
-        title: title
+        title: title,
+        allowOutsideClick: false
     })
     return result
 };

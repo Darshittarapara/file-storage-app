@@ -22,6 +22,12 @@ export const SignInPageSchema = Yup.object({
         .required('Please enter password')
 })
 
+export const SignInWithEmailPageSchema = Yup.object({
+    email: Yup.string()
+        .required('Please enter email')
+        .email('Please enter vaild email'),
+
+})
 
 
 

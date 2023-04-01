@@ -6,6 +6,7 @@ import WithAuthLayout from 'layout/WithAuthLayout/WithAuthLayout';
 import Login from "screen/Auth/Login/Login";
 import { useLocation } from 'react-router-dom';
 import VerifyEmail from 'screen/Auth/VerifyEmail/VerifyEmail';
+import LoginWithEmailLink from 'screen/Auth/LoginWithEmailLink/LoginWithEmailLink';
 
 const AuthRouting = () => {
     const navigator = useNavigate();
@@ -14,7 +15,8 @@ const AuthRouting = () => {
         if (pathname === "/") {
             navigator("/login")
         }
-    }, [pathname, navigator])
+        // eslint-disable-next-line react-hooks/exhaustive-deps
+    }, [pathname])
     return (
         <Routes>
             <Route index path="/login" element={<WithAuthLayout component={Login} />} />
@@ -23,6 +25,11 @@ const AuthRouting = () => {
                 path="/verification"
                 element={<WithAuthLayout
                     component={VerifyEmail} />}
+            />
+            <Route
+                path="/loginWithEmail"
+                element={<WithAuthLayout
+                    component={LoginWithEmailLink} />}
             />
         </Routes>
     )
