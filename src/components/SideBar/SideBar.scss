@@ -1,17 +1,29 @@
 .sidebar-container {
     position: fixed;
+    overflow-y: scroll;
     top: 0px;
 
     background: rgb(27, 93, 155);
-.list-container {
-    height: 100%;
-    position: relative;
-    .toggle-list {
-        position: absolute;
-        bottom: 10px;
-    left: 30%;
-       
-     }
+
+    .list-container {
+        height: 100%;
+        position: relative;
+
+        .toggle-list {
+            position: absolute;
+            bottom: 30px;
+            left: 30%;
+        }
+    }
 }
-    
+
+@media screen and (max-width: 786px) {
+    .sidebar-container {
+        overflow-y: scroll;
+        .list-container {
+            .toggle-list {
+                bottom: 127px;
+            }
+        }
+    }
 }
