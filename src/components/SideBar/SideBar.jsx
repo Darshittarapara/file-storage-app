@@ -2,14 +2,16 @@ import React from 'react';
 import Logo from 'components/Logo/Logo';
 import './SideBar.scss';
 import Box from '@mui/material/Box';
+import IconButton from '@mui/material/IconButton';
 import List from '@mui/material/List';
+import ChevronLeftIcon from '@mui/icons-material/ChevronLeft';
 import ListItem from '@mui/material/ListItem';
 import ListItemButton from '@mui/material/ListItemButton';
 import ListItemIcon from '@mui/material/ListItemIcon';
 import ListItemText from '@mui/material/ListItemText';
 import { Strings } from 'resource/Strings';
 import { logo } from 'screen/Auth/Login/Login';
-import { Home, PhotoAlbum, VideoFileSharp, DocumentScanner } from '@mui/icons-material';
+import { Home, PhotoAlbum, VideoFileSharp, DocumentScanner, CloseSharp } from '@mui/icons-material';
 import { Divider } from '@mui/material';
 import Switch from '@mui/material/Switch';
 import { styled } from '@mui/material/styles';
@@ -40,10 +42,20 @@ const sidebarList = [
         icon: DocumentScanner
     }
 ]
-export const SideBar = () => {
+export const SideBar = (props) => {
     const dispatch = useDispatch()
     const navigator = useNavigate();
     const { mode } = useSelector((state) => state.ToggleStateData)
+    const DrawerHeader = styled('div')(({ theme }) => ({
+        display: 'flex',
+        alignItems: 'center',
+        fontSize: "24px",
+        padding: theme.spacing(0, 3),
+        // necessary for content to be below app bar
+        ...theme.mixins.toolbar,
+        justifyContent: 'space-between',
+    }));
+
     const MaterialUISwitch = styled(Switch)(({ theme }) => ({
         width: 62,
         height: 34,
@@ -106,7 +118,13 @@ export const SideBar = () => {
             <List className="list-container">
                 <ListItem disablePadding>
                     <ListItemIcon>
-                        <Logo src={logo} text={Strings.fileStroage} />
+                        <DrawerHeader>
+                            <Logo src={logo} text={Strings.fileStroage} />
+                            <IconButton onClick={() => props.onClose()}>
+                                <CloseSharp />
+                            </IconButton>
+                        </DrawerHeader>
+                        <Divider />
                     </ListItemIcon>
                 </ListItem>
                 <Divider style={{ border: "2px solid back" }} />
