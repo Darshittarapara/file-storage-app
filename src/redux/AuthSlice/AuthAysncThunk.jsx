@@ -39,7 +39,7 @@ const actionCodeSettings = {
     url: config.authEmailVerifyURL,
     // This must be true.
     handleCodeInApp: true,
-    dynamicLinkDomain: config.authEmailVerifyURL
+
 };
 console.log(actionCodeSettings)
 export const emailVerifyAcion = createAsyncThunk(
