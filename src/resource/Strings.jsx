@@ -5,6 +5,7 @@ export const Strings = {
   photos: "Photos",
   videos: "Videos",
   files: "Files",
+  profile: 'Profile',
   document: "Document",
   fileStroage: "File stroage",
   logIn: "Log In",

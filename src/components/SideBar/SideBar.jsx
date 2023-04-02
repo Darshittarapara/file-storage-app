@@ -4,23 +4,29 @@ import './SideBar.scss';
 import Box from '@mui/material/Box';
 import IconButton from '@mui/material/IconButton';
 import List from '@mui/material/List';
-import ChevronLeftIcon from '@mui/icons-material/ChevronLeft';
 import ListItem from '@mui/material/ListItem';
 import ListItemButton from '@mui/material/ListItemButton';
 import ListItemIcon from '@mui/material/ListItemIcon';
 import ListItemText from '@mui/material/ListItemText';
 import { Strings } from 'resource/Strings';
 import { logo } from 'screen/Auth/Login/Login';
-import { Home, PhotoAlbum, VideoFileSharp, DocumentScanner, CloseSharp } from '@mui/icons-material';
-import { Divider } from '@mui/material';
+import { Home, PhotoAlbum, VideoFileSharp, DocumentScanner, CloseSharp, Person } from '@mui/icons-material';
+import { Avatar, Divider, Typography } from '@mui/material';
 import Switch from '@mui/material/Switch';
 import { styled } from '@mui/material/styles';
 import { FormGroup, FormControlLabel } from '@mui/material';
 import { useDispatch, useSelector } from 'react-redux';
-import { ToggleActions } from 'redux/ThemeSlice/ThemeSlice';
+import { ThemeActions } from 'redux/ThemeSlice/ThemeSlice';
 import { useNavigate } from 'react-router-dom';
+import { setItem } from 'utils/Storage';
+import { PREVIEW_THEME } from 'utils/const';
 
 const sidebarList = [
+    {
+        title: Strings.profile,
+        path: '/profile',
+        icon: Person
+    },
     {
         title: "Dashboard",
         path: "/",
@@ -46,6 +52,8 @@ export const SideBar = (props) => {
     const dispatch = useDispatch()
     const navigator = useNavigate();
     const { mode } = useSelector((state) => state.ToggleStateData)
+    const { usersDetails } = useSelector((state) => state.UserStateData)
+
     const DrawerHeader = styled('div')(({ theme }) => ({
         display: 'flex',
         alignItems: 'center',
@@ -103,12 +111,6 @@ export const SideBar = (props) => {
         },
     }));
 
-    // const [isShowSideBar, setIsShowSideBar] = useState(false)
-
-    // const toggleSideBar = () => {
-    //     setIsShowSideBar((preViewState) => !preViewState);
-    // }
-
     return (
         <Box
             className="sidebar-container"
@@ -120,9 +122,11 @@ export const SideBar = (props) => {
                     <ListItemIcon>
                         <DrawerHeader>
                             <Logo src={logo} text={Strings.fileStroage} />
-                            <IconButton onClick={() => props.onClose()}>
-                                <CloseSharp />
-                            </IconButton>
+                            {window.innerWidth < 576 && (
+                                <IconButton onClick={() => props.onClose()}>
+                                    <CloseSharp />
+                                </IconButton>
+                            )}
                         </DrawerHeader>
                         <Divider />
                     </ListItemIcon>
@@ -130,6 +134,24 @@ export const SideBar = (props) => {
                 <Divider style={{ border: "2px solid back" }} />
                 <Divider style={{ border: "2px solid back" }} />
                 <br></br>
+                <ListItem disablePadding>
+                    <ListItemIcon>
+                    </ListItemIcon>
+                    <Avatar
+                        alt={usersDetails?.displayName}
+                        src={usersDetails?.photoURL}
+                        sx={{ width: 100, height: 100, borderRadius: "100%" }}
+                        variant="dot"
+                    />
+                </ListItem>
+                <ListItem disablePadding>
+                    <ListItemIcon>
+                    </ListItemIcon>
+                    <Typography variant='h6' component="h6">
+                        Hello ! {usersDetails?.displayName}
+                    </Typography>
+                </ListItem>
+
                 {sidebarList.map(({ path, icon: Icon, title }, index) => (
                     <ListItem key={index} disablePadding>
                         <ListItemButton onClick={() => navigator(path)}>
@@ -144,11 +166,15 @@ export const SideBar = (props) => {
                     <FormGroup>
                         <FormControlLabel
                             control={<MaterialUISwitch className='toggle-checkbox' sx={{ m: 1 }} checked={mode === "dark" ? true : false} />}
-                            onChange={() => dispatch(ToggleActions.toggleTheme())}
+                            onChange={() => {
+                                dispatch(ThemeActions.toggleTheme());
+                                const currentTheme = mode === "light" ? "dark" : "light"
+                                setItem(PREVIEW_THEME, currentTheme)
+                            }}
                         />
                     </FormGroup>
                 </ListItem>
             </List>
-        </Box>
+        </Box >
     )
 }

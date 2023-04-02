@@ -2,6 +2,7 @@ import React from 'react';
 import './Logo.scss';
 const Logo = ({
     src,
+    className,
     text
 }) => {
     return <div className='logo-container'>
