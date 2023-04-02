@@ -10,15 +10,47 @@ form {
     display: flex;
     flex-direction: column;
 }
-form .form-image-input {
+.image-block {
     display: flex;
-    margin-top: 40px;
-    margin-bottom: -22px !important;
+    position:relative;
     justify-content: center;
+    width:100px;
 }
-form .form-image-input label img {
-border-radius: 50%;
-height: 100px;
-cursor: pointer;
-width: 140px;
+
+form img {
+    height: 100px;
+    cursor: pointer;
+    width: 140px;
+}
+.image-container {
+    display: flex;
+    justify-content: center; 
+}
+.image-label {
+    display: flex;
+    justify-content: center;
+    border : 1px solid rgb(195, 192, 192);
+    border-width: 5px;
+}
+.edit-item-container {
+    color: darkgrey;
+    position: absolute;
+    cursor: pointer;
+    top: -2px;
+    z-index: 3;
+    right: -10px;
+    border-radius: 100%;
+    background: white;
+
+}
+.close-item-container {
+    color: darkgrey;
+    position: absolute;
+    cursor: pointer;
+    z-index: 3;
+    right: -10px;
+    border-radius: 100%;
+    background: white;
+
+bottom: 0px;
 }

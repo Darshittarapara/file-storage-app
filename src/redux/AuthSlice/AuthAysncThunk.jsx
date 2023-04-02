@@ -13,7 +13,8 @@ export const userSignUpAction = createAsyncThunk(
             setItem(USER_ID, response?.user?.uid)
             dispatch(saveUserDetails({
                 userId: response?.user?.uid,
-                userName: payload.displayName
+                userName: payload.displayName,
+                pictureURL: payload?.pictureURL
             }))
             return {
                 status: true
@@ -27,9 +28,10 @@ export const userSignUpAction = createAsyncThunk(
 
 const saveUserDetails = createAsyncThunk(
     "auth/saveUserDetails",
-    async ({ userId, userName }) => {
+    async ({ userId, userName, pictureURL }) => {
         set(ref(db, `user/${userId}`), {
             displayName: userName,
+            photoURL: pictureURL
         })
     }
 )

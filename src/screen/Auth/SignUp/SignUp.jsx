@@ -2,6 +2,9 @@ import React, { Fragment, useEffect } from "react";
 import { AuthActions } from "redux/AuthSlice/AuthSlice";
 import Button from "../../../components/Button/Button";
 import Input from 'components/Input/Input';
+import { Avatar } from "@mui/material";
+import EditIcon from '@mui/icons-material/Edit';
+import CloseIcon from '@mui/icons-material/Close';
 import { NavLink } from "react-router-dom";
 import { useFormik } from "formik";
 import "./Signup.css";
@@ -20,19 +23,22 @@ const SignUp = () => {
   const navigate = useNavigate();
   const { isLoading, error } = useSelector((state) => state.AuthStateData);
   const dispatch = useDispatch()
-  const formilk = useFormik({
+  const formik = useFormik({
     initialValues: {
       email: "",
       password: "",
       userName: '',
-      confirmPassword: ""
+      confirmPassword: "",
+      profilePicture: "",
+      profilePictureURL: initalUrl
     },
     validationSchema: SignUpSchema,
     onSubmit: async (formValues) => {
       const payload = {
         email: formValues.email,
         password: formValues.password,
-        displayName: formValues.userName
+        displayName: formValues.userName,
+        pictureURL: formValues.profilePictureURL
       }
       dispatch(userSignUpAction(payload)).then((res) => {
         if (res?.payload?.status) {
@@ -41,32 +47,69 @@ const SignUp = () => {
       })
     }
   });
-  const { email } = formilk.values
+  const { email } = formik.values
   useEffect(() => {
     dispatch(AuthActions.resetErrorState())
   }, [email, dispatch]);
+  const handlerChange = (e) => {
+    if (!e.target.files[0]) return
+    formik.setFieldValue('profilePicture', e.target.files[0]);
+    const link = URL.createObjectURL(e.target.files[0])
+    formik.setFieldValue('profilePictureURL', link);
+  }
 
+  const resetImageState = () => {
+    formik.setFieldValue('profilePicture', '');
+    formik.setFieldValue('profilePictureURL', initalUrl);
+
+  }
   return (
     <Fragment>
       <div className="auth-contain">
         {error ? (
           <ErrorMessage message={error} />
         ) : <>
-          {formilk.errors.email && formilk.touched.email && <ErrorMessage message={formilk.errors.email} />}
-          {formilk.errors.password && formilk.touched.password && <ErrorMessage message={formilk.errors.password} />}
-          {formilk.errors.userName && formilk.touched.userName && <ErrorMessage message={formilk.errors.userName} />}
-          {formilk.errors.confirmPassword && formilk.touched.confirmPassword && <ErrorMessage message={formilk.errors.confirmPassword} />}
+          {formik.errors.email && formik.touched.email && <ErrorMessage message={formik.errors.email} />}
+          {formik.errors.password && formik.touched.password && <ErrorMessage message={formik.errors.password} />}
+          {formik.errors.userName && formik.touched.userName && <ErrorMessage message={formik.errors.userName} />}
+          {formik.errors.confirmPassword && formik.touched.confirmPassword && <ErrorMessage message={formik.errors.confirmPassword} />}
         </>}
 
         <Logo src={logo} text={Strings.fileStroage} />
-        <form onSubmit={formilk.handleSubmit}>
-          <div className="mb-2 mt-4">
+        <form onSubmit={formik.handleSubmit}>
+          <div className="image-container">
+            <div className="mb-0 mt-4 image-block">
+              <label className="form-label image-label" htmlFor="profilePicture">
+                <div className="edit-item-container">
+                  <EditIcon />
+                </div>
+                <Avatar
+                  alt="Remy Sharp"
+                  src={formik.values.profilePictureURL || initalUrl}
+                  sx={{ width: 100, height: 100, borderRadius: "0px" }}
+                  variant="dot"
+                />
+              </label>
+              <input
+                type="file"
+                id="profilePicture"
+                name="profilePicture"
+                placeholder="profilePicture"
+                onChange={(e) => handlerChange(e)}
+              />
+              <div className="close-item-container" onClick={resetImageState}>
+                <CloseIcon />
+              </div>
+            </div>
+          </div>
+
+          <div className="mb-2 mt-2">
             <Input
               type="text"
               name="userName"
               placeholder={Strings.userName}
-              formilk={formilk}
-              value={formilk.values.userName}
+              formilk={formik}
+              value={formik.values.userName}
             />
           </div>
 
@@ -74,8 +117,8 @@ const SignUp = () => {
             <Input
               type="email"
               name="email"
-              formilk={formilk}
-              value={formilk.values.email}
+              formilk={formik}
+              value={formik.values.email}
               placeholder={Strings.enterEmail}
             />
           </div>
@@ -83,8 +126,8 @@ const SignUp = () => {
             <Input
               type="password"
               name="password"
-              formilk={formilk}
-              value={formilk.values.password}
+              formilk={formik}
+              value={formik.values.password}
               placeholder={Strings.enterPin}
             />
           </div>
@@ -92,13 +135,13 @@ const SignUp = () => {
             <Input
               type="password"
               name="confirmPassword"
-              formilk={formilk}
-              value={formilk.values.confirmPassword}
+              formilk={formik}
+              value={formik.values.confirmPassword}
               placeholder={Strings.enterConfirmPin}
             />
           </div>
           <div className="mb-2 button-sign-up">
-            <Button disable={!formilk.isValid || !formilk.dirty || isLoading} type="submit" classes="authButton btn btn-primary">
+            <Button disable={!formik.isValid || !formik.dirty || isLoading} type="submit" classes="authButton btn btn-primary">
               {Strings.register}
             </Button>
           </div>
