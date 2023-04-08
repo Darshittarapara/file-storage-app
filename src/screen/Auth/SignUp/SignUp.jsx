@@ -13,11 +13,12 @@ import { ErrorMessage } from "components/ErrorMessage/ErrorMessage";
 import { Strings } from "../../../resource/Strings";
 import Logo from "components/Logo/Logo";
 import { logo } from "../Login/Login";
+import blankProfilePicture from 'assets/image/blank-profile-picture.jpg'
 import { SignUpSchema } from "utils/Validation";
 import { useDispatch, useSelector } from "react-redux";
 import { userSignUpAction } from "redux/AuthSlice/AuthAysncThunk";
 import { useNavigate } from "react-router-dom";
-export const initalUrl = "https://www.nailseatowncouncil.gov.uk/wp-content/uploads/blank-profile-picture-973460_1280.jpg"
+export const initalUrl = blankProfilePicture
 
 const SignUp = () => {
   const navigate = useNavigate();
@@ -29,7 +30,7 @@ const SignUp = () => {
       password: "",
       userName: '',
       confirmPassword: "",
-      profilePicture: "",
+      profilePictureFile: "",
       profilePictureURL: initalUrl
     },
     validationSchema: SignUpSchema,
@@ -51,11 +52,20 @@ const SignUp = () => {
   useEffect(() => {
     dispatch(AuthActions.resetErrorState())
   }, [email, dispatch]);
+
+  const createAFileObjectLink = async (file) => {
+    const fileReader = new FileReader();
+    fileReader.onload = async (e) => {
+      formik.setFieldValue('profilePictureURL', e.target.result);
+    }
+    fileReader.readAsDataURL(file);
+  }
   const handlerChange = (e) => {
-    if (!e.target.files[0]) return
-    formik.setFieldValue('profilePicture', e.target.files[0]);
-    const link = URL.createObjectURL(e.target.files[0])
-    formik.setFieldValue('profilePictureURL', link);
+    const file = e.target.files[0];
+    if (!file) return
+    createAFileObjectLink(file)
+    formik.setFieldValue('profilePictureFile', file);
+
   }
 
   const resetImageState = () => {
@@ -93,7 +103,8 @@ const SignUp = () => {
               <input
                 type="file"
                 id="profilePicture"
-                name="profilePicture"
+                name="profilePictureFile"
+                accept=".jpg,.png,.jpeg"
                 placeholder="profilePicture"
                 onChange={(e) => handlerChange(e)}
               />
