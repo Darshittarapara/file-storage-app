@@ -12,11 +12,12 @@ const slice = createSlice({
     initialState,
     reducers: {
         signUp(state, action) {
-            console.log(action);
+            state.isAuth = true;
         },
         resetErrorState(state) {
             state.error = ''
         },
+
         cancelAuth(state) {
             state.isAuth = false
         }

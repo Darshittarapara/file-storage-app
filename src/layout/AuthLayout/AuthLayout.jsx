@@ -18,11 +18,9 @@ export const AuthLayout = ({
     const { mode } = useSelector((state) => state.ToggleStateData)
     const [isToggleSideBar, setIsToggleSideBar] = useState(false);
     const { isLoading } = useSelector((state) => state.UserStateData)
-    console.log(isLoading)
     const dispatch = useDispatch()
     const userId = localStorage.getItem(USER_ID)
 
-    console.log(userId)
     useEffect(() => {
         const currentWidth = window.innerWidth;
         if (currentWidth > 576) {

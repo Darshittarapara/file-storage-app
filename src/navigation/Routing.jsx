@@ -7,7 +7,6 @@ import { USER } from '../utils/const.js'
 
 export const Routing = () => {
   const { isAuth } = useSelector((state) => state.AuthStateData)
-  console.log(isAuth);
   const userDetails = getItem(USER);
 
   return (

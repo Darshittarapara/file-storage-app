@@ -7,10 +7,11 @@ import AuthLayout from 'layout/AuthLayout/AuthLayout';
 import Home from 'screen/Home/Home';
 
 const PrivateRouting = () => {
+
     return (
         <Routes>
-            <Route path='/' element={<AuthLayout component={Home} />} />
-            <Route index path="/login" element={<WithAuthLayout component={Login} />} />
+            <Route index path='/' element={<AuthLayout component={Home} />} />
+            <Route path="/login" element={<WithAuthLayout component={Login} />} />
             <Route
                 path="*"
                 element={<PageNotFound />}
