@@ -63,7 +63,6 @@ export const SideBar = (props) => {
         ...theme.mixins.toolbar,
         justifyContent: 'space-between',
     }));
-    alert(usersDetails?.photoURL)
 
     const MaterialUISwitch = styled(Switch)(({ theme }) => ({
         width: 62,
