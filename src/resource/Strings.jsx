@@ -9,6 +9,7 @@ export const Strings = {
   document: "Document",
   fileStroage: "File stroage",
   logIn: "Log In",
+  logOut: "Log out",
   logInWithEmailandPassword: "Log In With Email & Password",
   logInWithEmailVerification: "LogIn With Email Verification",
   register: "Register",
