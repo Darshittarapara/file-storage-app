@@ -13,11 +13,12 @@ import { ErrorMessage } from "components/ErrorMessage/ErrorMessage";
 import { Strings } from "../../../resource/Strings";
 import Logo from "components/Logo/Logo";
 import { logo } from "../Login/Login";
+import blankProfilePicture from 'assets/image/blank-profile-picture.jpg'
 import { SignUpSchema } from "utils/Validation";
 import { useDispatch, useSelector } from "react-redux";
 import { userSignUpAction } from "redux/AuthSlice/AuthAysncThunk";
 import { useNavigate } from "react-router-dom";
-export const initalUrl = "https://www.nailseatowncouncil.gov.uk/wp-content/uploads/blank-profile-picture-973460_1280.jpg"
+export const initalUrl = blankProfilePicture
 
 const SignUp = () => {
   const navigate = useNavigate();
@@ -103,7 +104,6 @@ const SignUp = () => {
                 type="file"
                 id="profilePicture"
                 name="profilePictureFile"
-                multiple
                 accept=".jpg,.png,.jpeg"
                 placeholder="profilePicture"
                 onChange={(e) => handlerChange(e)}
