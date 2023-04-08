@@ -29,7 +29,7 @@ const SignUp = () => {
       password: "",
       userName: '',
       confirmPassword: "",
-      profilePicture: "",
+      profilePictureFile: "",
       profilePictureURL: initalUrl
     },
     validationSchema: SignUpSchema,
@@ -51,11 +51,20 @@ const SignUp = () => {
   useEffect(() => {
     dispatch(AuthActions.resetErrorState())
   }, [email, dispatch]);
+
+  const createAFileObjectLink = async (file) => {
+    const fileReader = new FileReader();
+    fileReader.onload = async (e) => {
+      formik.setFieldValue('profilePictureURL', e.target.result);
+    }
+    fileReader.readAsDataURL(file);
+  }
   const handlerChange = (e) => {
-    if (!e.target.files[0]) return
-    formik.setFieldValue('profilePicture', e.target.files[0]);
-    const link = URL.createObjectURL(e.target.files[0])
-    formik.setFieldValue('profilePictureURL', link);
+    const file = e.target.files[0];
+    if (!file) return
+    createAFileObjectLink(file)
+    formik.setFieldValue('profilePictureFile', file);
+
   }
 
   const resetImageState = () => {
@@ -93,7 +102,9 @@ const SignUp = () => {
               <input
                 type="file"
                 id="profilePicture"
-                name="profilePicture"
+                name="profilePictureFile"
+                multiple
+                accept=".jpg,.png,.jpeg"
                 placeholder="profilePicture"
                 onChange={(e) => handlerChange(e)}
               />
