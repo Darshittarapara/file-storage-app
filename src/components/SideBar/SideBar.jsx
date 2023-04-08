@@ -1,6 +1,7 @@
 import React from 'react';
 import Logo from 'components/Logo/Logo';
 import './SideBar.scss';
+import { AuthActions } from 'redux/AuthSlice/AuthSlice';
 import Box from '@mui/material/Box';
 import IconButton from '@mui/material/IconButton';
 import List from '@mui/material/List';
@@ -10,7 +11,8 @@ import ListItemIcon from '@mui/material/ListItemIcon';
 import ListItemText from '@mui/material/ListItemText';
 import { Strings } from 'resource/Strings';
 import { logo } from 'screen/Auth/Login/Login';
-import { Home, PhotoAlbum, VideoFileSharp, DocumentScanner, CloseSharp, Person } from '@mui/icons-material';
+import { clearStorage } from 'utils/Storage';
+import { Home, PhotoAlbum, VideoFileSharp, DocumentScanner, CloseSharp, Person, LogoutSharp } from '@mui/icons-material';
 import { Avatar, Divider, Typography } from '@mui/material';
 import Switch from '@mui/material/Switch';
 import { styled } from '@mui/material/styles';
@@ -20,6 +22,7 @@ import { ThemeActions } from 'redux/ThemeSlice/ThemeSlice';
 import { useNavigate } from 'react-router-dom';
 import { setItem } from 'utils/Storage';
 import { PREVIEW_THEME } from 'utils/const';
+import { signOut } from 'firebase/auth';
 
 const sidebarList = [
     {
@@ -54,6 +57,11 @@ export const SideBar = (props) => {
     const { mode } = useSelector((state) => state.ToggleStateData)
     const { usersDetails } = useSelector((state) => state.UserStateData)
 
+    const logOutHandler = async () => {
+        clearStorage()
+        dispatch(AuthActions.cancelAuth())
+        await signOut()
+    }
     const DrawerHeader = styled('div')(({ theme }) => ({
         display: 'flex',
         alignItems: 'center',
@@ -162,6 +170,14 @@ export const SideBar = (props) => {
                         </ListItemButton>
                     </ListItem>
                 ))}
+                <ListItem disablePadding>
+                    <ListItemButton onClick={logOutHandler}>
+                        <ListItemIcon>
+                            <LogoutSharp />
+                        </ListItemIcon>
+                        <ListItemText primary={Strings.logOut} />
+                    </ListItemButton>
+                </ListItem>
                 <ListItem disablePadding className='toggle-list'>
                     <FormGroup>
                         <FormControlLabel
