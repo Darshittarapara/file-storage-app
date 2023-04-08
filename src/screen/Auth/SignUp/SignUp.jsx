@@ -41,8 +41,10 @@ const SignUp = () => {
         displayName: formValues.userName,
         pictureURL: formValues.profilePictureURL
       }
+
       dispatch(userSignUpAction(payload)).then((res) => {
         if (res?.payload?.status) {
+          dispatch(AuthActions.signUp())
           navigate('/')
         }
       })

@@ -43,7 +43,7 @@ const actionCodeSettings = {
     handleCodeInApp: true,
 
 };
-console.log(actionCodeSettings)
+
 export const emailVerifyAcion = createAsyncThunk(
     "auth/userSignUpAction",
     async (payload, { dispatch }) => {
