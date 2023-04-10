@@ -6,13 +6,16 @@ import store from 'redux/store';
 import './index.css';
 import { Routing } from './navigation/Routing';
 import reportWebVitals from './reportWebVitals';
+import AuthContextProvider from 'context/AuthContext';
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
   <React.StrictMode>
     <Provider store={store}>
       <BrowserRouter>
-        <Routing />
+        <AuthContextProvider>
+          <Routing />
+        </AuthContextProvider>
       </BrowserRouter>
     </Provider>
   </React.StrictMode>
