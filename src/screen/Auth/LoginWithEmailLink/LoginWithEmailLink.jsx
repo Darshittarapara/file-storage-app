@@ -64,10 +64,10 @@ const LoginWithEmailLink = () => {
         <div style={{ textAlign: "center", width: "100%", margin: "10px 0px" }}>---OR----</div>
 
         <div style={{ textAlign: "center" }}>
-          <NavLink to="/login">  {Strings.logInWithEmailandPassword}</NavLink>
+          <NavLink to="/auth/login">  {Strings.logInWithEmailandPassword}</NavLink>
         </div>
         <div style={{ textAlign: "center" }}>
-          <NavLink to="/signUp">Register</NavLink>
+          <NavLink to="/auth/signUp">Register</NavLink>
         </div>
       </form>
     </div>

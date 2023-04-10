@@ -84,7 +84,7 @@ const Login = () => {
             <NavLink to="/loginWithEmail">{Strings.logInWithEmailVerification}</NavLink>
           </div>
           <div style={{ textAlign: "center" }}>
-            <NavLink to="/signUp">Register</NavLink>
+            <NavLink to="/auth/signup">Register</NavLink>
           </div>
         </form>
       </div>
