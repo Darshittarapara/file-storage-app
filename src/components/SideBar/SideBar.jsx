@@ -23,6 +23,7 @@ import { useNavigate } from 'react-router-dom';
 import { setItem } from 'utils/Storage';
 import { PREVIEW_THEME } from 'utils/const';
 import { signOut } from 'firebase/auth';
+import { auth } from 'FirebaseConfig/FireBaseConfig';
 
 const sidebarList = [
     {
@@ -60,7 +61,7 @@ export const SideBar = (props) => {
     const logOutHandler = async () => {
         clearStorage()
         dispatch(AuthActions.cancelAuth())
-        await signOut()
+        await signOut(auth);
     }
     const DrawerHeader = styled('div')(({ theme }) => ({
         display: 'flex',
@@ -129,9 +130,9 @@ export const SideBar = (props) => {
                 <ListItem disablePadding>
                     <ListItemIcon>
                         <DrawerHeader>
-                            <Logo src={logo} className="login-logo" />
+                            <Logo src={logo} className="sidebar-logo" />
                             {window.innerWidth < 576 && (
-                                <IconButton onClick={() => props.onClose()}>
+                                <IconButton onClick={() => props.onClose()} className='close-icon'>
                                     <CloseSharp />
                                 </IconButton>
                             )}
@@ -156,7 +157,7 @@ export const SideBar = (props) => {
                     <ListItemIcon>
                     </ListItemIcon>
                     <Typography variant='h6' component="h6">
-                        Hello ! {usersDetails?.displayName}
+                        {usersDetails?.displayName}
                     </Typography>
                 </ListItem>
 

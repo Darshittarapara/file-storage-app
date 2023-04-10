@@ -1,12 +1,12 @@
 .auth {
     display: flex;
     height: 100vh;
-    padding-top: 50px;
+    padding-top: 30px;
     background: aliceblue;
     justify-content: flex-start;
     flex-direction: column;
     align-items: center;
-    overflow-x: hidden !important;
+
 }
 @media screen and (max-width: 786px) {
     .auth {

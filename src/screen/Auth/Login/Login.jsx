@@ -8,7 +8,7 @@ import { useFormik } from "formik";
 import { SignInPageSchema } from "utils/Validation";
 import { ErrorMessage } from "../../../components/ErrorMessage/ErrorMessage";
 import { Strings } from "resource/Strings";
-import logo from '../../../assets/image/logo.png';
+import logo from 'assets/image/logo.png';
 import Logo from "components/Logo/Logo";
 import { useDispatch, useSelector } from "react-redux";
 import { userSignInWithPasswordAction } from "redux/AuthSlice/AuthAysncThunk";

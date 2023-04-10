@@ -5,7 +5,7 @@ const Logo = ({
     className,
     text
 }) => {
-    return <div className={`logo-container ${className}`}>
+    return <div className={`${className || "logo-container"}`}>
         <img src={src} alt={text} />
         <span className='logo-title'>
             {text}
