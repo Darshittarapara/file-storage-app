@@ -23,6 +23,7 @@ import { useNavigate } from 'react-router-dom';
 import { setItem } from 'utils/Storage';
 import { PREVIEW_THEME } from 'utils/const';
 import { signOut } from 'firebase/auth';
+import { auth } from 'FirebaseConfig/FireBaseConfig';
 
 const sidebarList = [
     {
@@ -57,10 +58,10 @@ export const SideBar = (props) => {
     const { mode } = useSelector((state) => state.ToggleStateData)
     const { usersDetails } = useSelector((state) => state.UserStateData)
 
-    const logOutHandler = async () => {
-        clearStorage()
-        dispatch(AuthActions.cancelAuth())
-        await signOut()
+    const logOutHandler = () => {
+        clearStorage();
+        dispatch(AuthActions.cancelAuth());
+        window.location.reload();
     }
     const DrawerHeader = styled('div')(({ theme }) => ({
         display: 'flex',

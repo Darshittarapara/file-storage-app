@@ -24,12 +24,12 @@ export const AuthLayout = ({
     useEffect(() => {
         const currentWidth = window.innerWidth;
         if (currentWidth > 576) {
-            setIsToggleSideBar(true)
+            setIsToggleSideBar(true);
         }
     }, [])
     useEffect(() => {
         if (userId) {
-            dispatch(getUserProfileAction(userId))
+            dispatch(getUserProfileAction(userId));
         }
     }, [userId, dispatch])
     const theme = React.useMemo(
