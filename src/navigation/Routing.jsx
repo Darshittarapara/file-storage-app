@@ -13,7 +13,7 @@ export const Routing = () => {
   return (
     <Routes>
       <Route path='/' element={<AuthLayout component={Home} />} />
-      <Route path="/auth/login" element={<WithAuthLayout component={Login} />} />
+      <Route index path="/auth/login" element={<WithAuthLayout component={Login} />} />
       <Route path="/auth/signup" element={<WithAuthLayout component={SignUp} />} />
       <Route
         path="/auth/verification"
