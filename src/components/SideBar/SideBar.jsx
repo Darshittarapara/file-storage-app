@@ -129,7 +129,7 @@ export const SideBar = (props) => {
                 <ListItem disablePadding>
                     <ListItemIcon>
                         <DrawerHeader>
-                            <Logo src={logo} text={Strings.fileStroage} />
+                            <Logo src={logo} className="login-logo" />
                             {window.innerWidth < 576 && (
                                 <IconButton onClick={() => props.onClose()}>
                                     <CloseSharp />
