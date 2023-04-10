@@ -16,7 +16,7 @@ const AuthContextProvider = ({
 
     useEffect(() => {
         if (pathname.includes('/auth')) {
-            return
+            navigator(pathname)
         }
         else if (user || isAuth) {
             navigator('/')
