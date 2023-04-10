@@ -1,7 +1,9 @@
-label {
+input {
     float: left;
-    font-weight: bolder;
-    margin: 8px 0px;
+    font-weight: 600;
+    border: 0px;
+    outline: 0px !important;
+    margin: 10px 0px;
 }
 input[type=number]::-webkit-inner-spin-button, 
 input[type=number]::-webkit-outer-spin-button { 

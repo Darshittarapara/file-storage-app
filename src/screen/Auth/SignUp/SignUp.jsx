@@ -7,7 +7,7 @@ import EditIcon from '@mui/icons-material/Edit';
 import CloseIcon from '@mui/icons-material/Close';
 import { NavLink } from "react-router-dom";
 import { useFormik } from "formik";
-import "./Signup.css";
+import "./Signup.scss";
 import "../auth.css";
 import { ErrorMessage } from "components/ErrorMessage/ErrorMessage";
 import { Strings } from "../../../resource/Strings";
@@ -77,17 +77,16 @@ const SignUp = () => {
   }
   return (
     <Fragment>
+      {error ? (
+        <ErrorMessage message={error} />
+      ) : <>
+        {formik.errors.email && formik.touched.email && <ErrorMessage message={formik.errors.email} />}
+        {formik.errors.password && formik.touched.password && <ErrorMessage message={formik.errors.password} />}
+        {formik.errors.userName && formik.touched.userName && <ErrorMessage message={formik.errors.userName} />}
+        {formik.errors.confirmPassword && formik.touched.confirmPassword && <ErrorMessage message={formik.errors.confirmPassword} />}
+      </>}
+      <Logo src={logo} className="sign-up-logo" />
       <div className="auth-contain">
-        {error ? (
-          <ErrorMessage message={error} />
-        ) : <>
-          {formik.errors.email && formik.touched.email && <ErrorMessage message={formik.errors.email} />}
-          {formik.errors.password && formik.touched.password && <ErrorMessage message={formik.errors.password} />}
-          {formik.errors.userName && formik.touched.userName && <ErrorMessage message={formik.errors.userName} />}
-          {formik.errors.confirmPassword && formik.touched.confirmPassword && <ErrorMessage message={formik.errors.confirmPassword} />}
-        </>}
-
-        <Logo src={logo} text={Strings.fileStroage} />
         <form onSubmit={formik.handleSubmit}>
           <div className="image-container">
             <div className="mb-0 mt-4 image-block">
