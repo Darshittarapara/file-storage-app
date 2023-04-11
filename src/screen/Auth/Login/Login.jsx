@@ -1,13 +1,14 @@
-import React from "react";
+import React, { Fragment } from "react";
 import { NavLink, useNavigate } from "react-router-dom";
 import Button from "../../../components/Button/Button";
 import Input from '../../../components/Input/Input'
 import "../auth.css";
+import './Login.scss';
 import { useFormik } from "formik";
 import { SignInPageSchema } from "utils/Validation";
 import { ErrorMessage } from "../../../components/ErrorMessage/ErrorMessage";
 import { Strings } from "resource/Strings";
-import logo from '../../../assets/image/logo.png';
+import logo from 'assets/image/logo.png';
 import Logo from "components/Logo/Logo";
 import { useDispatch, useSelector } from "react-redux";
 import { userSignInWithPasswordAction } from "redux/AuthSlice/AuthAysncThunk";
@@ -41,52 +42,54 @@ const Login = () => {
   }, [email, password, dispatch]);
 
   return (
-    <div className="auth-contain">
-      {error ? (
-        <ErrorMessage message={error} />
-      ) : <>
-        {formilk.errors.email && formilk.touched.email && <ErrorMessage message={formilk.errors.email} />}
-        {formilk.errors.password && formilk.touched.password && <ErrorMessage message={formilk.errors.password} />}
-      </>}
-      <Logo src={logo} text={Strings.fileStroage} />
-      <form onSubmit={formilk.handleSubmit}>
-        <div className="mb-3">
-          <Input
-            type="email"
-            id="email"
-            formilk={formilk}
-            name="email"
-            className="form-control"
-            placeholder={Strings.enterEmail}
-            value={formilk.values.email}
-          />
+    <Fragment>
+      <Logo src={logo} className="login-logo" />
+      <div className="auth-contain">
+        {error ? (
+          <ErrorMessage message={error} />
+        ) : <>
+          {formilk.errors.email && formilk.touched.email && <ErrorMessage message={formilk.errors.email} />}
+          {formilk.errors.password && formilk.touched.password && <ErrorMessage message={formilk.errors.password} />}
+        </>}
+
+        <form onSubmit={formilk.handleSubmit}>
           <div className="mb-3">
             <Input
-              type="password"
-              id="password"
+              type="email"
+              id="email"
               formilk={formilk}
-              name="password"
+              name="email"
               className="form-control"
-              placeholder={Strings.enterPin}
-              value={formilk.values.password}
+              placeholder={Strings.enterEmail}
+              value={formilk.values.email}
             />
+            <div className="mb-1">
+              <Input
+                type="password"
+                id="password"
+                formilk={formilk}
+                name="password"
+                className="form-control"
+                placeholder={Strings.enterPin}
+                value={formilk.values.password}
+              />
+            </div>
           </div>
-        </div>
-        <div className="mt-1">
-          <Button disable={!formilk.isValid || !formilk.dirty || isLoading} type="submit" classes="authButton btn btn-primary">
-            {isLoading ? <div className="spinner-border" role="status" /> : Strings.logIn}
-          </Button>
-        </div>
-        <div style={{ textAlign: "center", width: "100%", margin: "10px 0px" }}>---OR----</div>
+          <div className="mt-1 mb-2">
+            <Button disable={!formilk.isValid || !formilk.dirty || isLoading} type="submit" classes="authButton btn btn-primary">
+              {isLoading ? <div className="spinner-border" role="status" /> : Strings.logIn}
+            </Button>
+          </div>
+          <div style={{ textAlign: "center" }}>
+            <NavLink to="/loginWithEmail">{Strings.logInWithEmailVerification}</NavLink>
+          </div>
+          <div style={{ textAlign: "center" }}>
+            <NavLink to="/auth/signup">Register</NavLink>
+          </div>
+        </form>
+      </div>
+    </Fragment>
 
-        <div style={{ textAlign: "center" }}>
-          <NavLink to="/loginWithEmail">{Strings.logInWithEmailVerification}</NavLink>
-        </div>
-        <div style={{ textAlign: "center" }}>
-          <NavLink to="/signUp">Register</NavLink>
-        </div>
-      </form>
-    </div>
   );
 };
 

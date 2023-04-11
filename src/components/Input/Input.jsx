@@ -14,7 +14,7 @@ const Input = (props) => {
 
     return (
         <Fragment>
-            <label htmlFor={id}>{placeholder}</label>
+
             <input
                 type={type}
                 id={id}

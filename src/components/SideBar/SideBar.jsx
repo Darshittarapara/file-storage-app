@@ -132,9 +132,9 @@ export const SideBar = (props) => {
                 <ListItem disablePadding>
                     <ListItemIcon>
                         <DrawerHeader>
-                            <Logo src={logo} text={Strings.fileStroage} />
+                            <Logo src={logo} className="sidebar-logo" />
                             {window.innerWidth < 576 && (
-                                <IconButton onClick={() => props.onClose()}>
+                                <IconButton onClick={() => props.onClose()} className='close-icon'>
                                     <CloseSharp />
                                 </IconButton>
                             )}
@@ -159,7 +159,7 @@ export const SideBar = (props) => {
                     <ListItemIcon>
                     </ListItemIcon>
                     <Typography variant='h6' component="h6">
-                        Hello ! {usersDetails?.displayName}
+                        {usersDetails?.displayName}
                     </Typography>
                 </ListItem>
 
@@ -194,6 +194,6 @@ export const SideBar = (props) => {
                     </FormGroup>
                 </ListItem>
             </List>
-        </Box >
+        </Box>
     )
 }
