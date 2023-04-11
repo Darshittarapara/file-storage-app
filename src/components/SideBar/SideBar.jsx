@@ -59,9 +59,11 @@ export const SideBar = (props) => {
     const { usersDetails } = useSelector((state) => state.UserStateData)
 
     const logOutHandler = async () => {
-        clearStorage();
-        dispatch(AuthActions.cancelAuth());
-        await signOut()
+        signOut(auth).then((res) => {
+            clearStorage();
+            dispatch(AuthActions.cancelAuth());
+            window.location.reload();
+        })
     }
     const DrawerHeader = styled('div')(({ theme }) => ({
         display: 'flex',
@@ -192,6 +194,6 @@ export const SideBar = (props) => {
                     </FormGroup>
                 </ListItem>
             </List>
-        </Box >
+        </Box>
     )
 }
