@@ -31,5 +31,4 @@ const AuthContextProvider = ({
         </AuthContext.Provider>
     )
 }
-
 export default AuthContextProvider;

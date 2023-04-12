@@ -54,18 +54,23 @@ const SignUp = () => {
   useEffect(() => {
     dispatch(AuthActions.resetErrorState())
   }, [email, dispatch]);
-
-  const createAFileObjectLink = async (file) => {
-    const fileReader = new FileReader();
-    fileReader.onload = async (e) => {
-      formik.setFieldValue('profilePictureURL', e.target.result);
-    }
-    fileReader.readAsDataURL(file);
-  }
+  /**
+   * Genetate a  image URL and update formik state
+   * For future Use
+   * @param file 
+   * @returns null
+   */
+  // const createAFileObjectLink = async (file) => {
+  //   const fileReader = new FileReader();
+  //   fileReader.onload = async (e) => {
+  //     formik.setFieldValue('profilePictureURL', e.target.result);
+  //   }
+  //   fileReader.readAsDataURL(file);
+  // }
   const handlerChange = (e) => {
     const file = e.target.files[0];
     if (!file) return
-    createAFileObjectLink(file)
+    formik.setFieldValue('profilePictureURL', URL.createObjectURL(file));
     formik.setFieldValue('profilePictureFile', file);
 
   }
