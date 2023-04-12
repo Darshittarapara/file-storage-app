@@ -1,7 +1,7 @@
 import { createAsyncThunk } from "@reduxjs/toolkit";
 import { config } from "config/config";
-import { createUserWithEmailAndPassword, signInWithEmailAndPassword } from "firebase/auth";
-import { auth, db, sendSignInLinkToEmail, set, ref } from "FirebaseConfig/FireBaseConfig";
+import { createUserWithEmailAndPassword, signInWithEmailAndPassword, updateProfile } from "firebase/auth";
+import { auth, sendSignInLinkToEmail } from "FirebaseConfig/FireBaseConfig";
 import { setItem } from "utils/Storage";
 import { USER, USER_ID, VERIFY_EMAIL } from '../../utils/const.js'
 export const userSignUpAction = createAsyncThunk(
@@ -12,6 +12,7 @@ export const userSignUpAction = createAsyncThunk(
             setItem(USER, response)
             setItem(USER_ID, response?.user?.uid)
             dispatch(saveUserDetails({
+                currentUser: response?.user,
                 userId: response?.user?.uid,
                 userName: payload.displayName,
                 pictureURL: payload?.pictureURL
@@ -28,11 +29,12 @@ export const userSignUpAction = createAsyncThunk(
 
 const saveUserDetails = createAsyncThunk(
     "auth/saveUserDetails",
-    async ({ userId, userName, pictureURL }) => {
-        set(ref(db, `user/${userId}`), {
+    async ({ currentUser, userId, userName, pictureURL }) => {
+        updateProfile(currentUser, {
             displayName: userName,
             photoURL: pictureURL
-        })
+        }).then((res) => {
+        }).catch((error) => console.log(error))
     }
 )
 const actionCodeSettings = {

@@ -1,12 +1,7 @@
-// Import the functions you need from the SDKs you need
-
-// TODO: Add SDKs for Firebase products that you want to use
-// https://firebase.google.com/docs/web/setup#available-libraries
-
 import { initializeApp } from 'firebase/app';
 import { getAnalytics } from 'firebase/analytics'
 import { getDatabase, set, ref } from "firebase/database";
-import { getAuth, createUserWithEmailAndPassword, sendSignInLinkToEmail, signOut } from 'firebase/auth';
+import { getAuth, updateProfile, createUserWithEmailAndPassword, sendSignInLinkToEmail, signOut } from 'firebase/auth';
 const firebaseConfig = {
     apiKey: process.env.REACT_APP_API_KEY,
     authDomain: process.env.REACT_APP_AUTH_DOMAIN,
@@ -26,5 +21,6 @@ export {
     set,
     ref,
     sendSignInLinkToEmail,
-    signOut
+    signOut,
+    updateProfile
 }

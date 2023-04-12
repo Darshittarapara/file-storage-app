@@ -5,21 +5,18 @@ import { ThemeProvider, createTheme } from '@mui/material/styles';
 import CssBaseline from '@mui/material/CssBaseline';
 import { useDispatch, useSelector } from 'react-redux';
 import { getUserProfileAction } from 'redux/UserSlice/UserAysncThunk'
-import { USER_ID } from 'utils/const'
 import IconButton from '@mui/material/IconButton';
 import MenuIcon from '@mui/icons-material/Menu';
 import Toolbar from '@mui/material/Toolbar';
 import { useEffect } from 'react';
 import { Loader } from 'components/Loader/Loader';
+import { auth } from 'FirebaseConfig/FireBaseConfig';
 export const AuthLayout = ({
     component: Component
 }) => {
-
     const { mode } = useSelector((state) => state.ToggleStateData)
     const [isToggleSideBar, setIsToggleSideBar] = useState(false);
-    const { isLoading } = useSelector((state) => state.UserStateData)
     const dispatch = useDispatch()
-    const userId = localStorage.getItem(USER_ID)
 
     useEffect(() => {
         const currentWidth = window.innerWidth;
@@ -28,10 +25,8 @@ export const AuthLayout = ({
         }
     }, [])
     useEffect(() => {
-        if (userId) {
-            dispatch(getUserProfileAction(userId));
-        }
-    }, [userId, dispatch])
+        dispatch(getUserProfileAction());
+    }, [dispatch])
     const theme = React.useMemo(
         () =>
             createTheme({
@@ -44,10 +39,11 @@ export const AuthLayout = ({
     const handleDrawerToggle = (e) => {
         setIsToggleSideBar((preViewState) => !preViewState)
     }
+
     return (
         <ThemeProvider theme={theme}>
             <CssBaseline />
-            {isLoading ? <Loader /> : (
+            {!auth.currentUser ? <Loader /> : (
                 <div className='main'>
                     <div className='row'>
                         <div className='col-md-3 col-lg-3 col-xl-3 col-3'>

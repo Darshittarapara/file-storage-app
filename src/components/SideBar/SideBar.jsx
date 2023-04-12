@@ -24,6 +24,7 @@ import { setItem } from 'utils/Storage';
 import { PREVIEW_THEME } from 'utils/const';
 import { signOut } from 'firebase/auth';
 import { auth } from 'FirebaseConfig/FireBaseConfig';
+import { UserActions } from 'redux/UserSlice/UserSlice';
 
 const sidebarList = [
     {
@@ -56,13 +57,13 @@ export const SideBar = (props) => {
     const dispatch = useDispatch()
     const navigator = useNavigate();
     const { mode } = useSelector((state) => state.ToggleStateData)
-    const { usersDetails } = useSelector((state) => state.UserStateData)
+    const { userDetails } = useSelector((state) => state.UserStateData)
 
     const logOutHandler = async () => {
         signOut(auth).then((res) => {
             clearStorage();
             dispatch(AuthActions.cancelAuth());
-            window.location.reload();
+            dispatch(UserActions.resetState())
         })
     }
     const DrawerHeader = styled('div')(({ theme }) => ({
@@ -149,8 +150,8 @@ export const SideBar = (props) => {
                     <ListItemIcon>
                     </ListItemIcon>
                     <Avatar
-                        alt={usersDetails?.displayName}
-                        src={usersDetails?.photoURL}
+                        alt={userDetails?.displayName}
+                        src={userDetails?.photoURL}
                         sx={{ width: 100, height: 100, borderRadius: "100%" }}
                         variant="dot"
                     />
@@ -159,7 +160,7 @@ export const SideBar = (props) => {
                     <ListItemIcon>
                     </ListItemIcon>
                     <Typography variant='h6' component="h6">
-                        {usersDetails?.displayName}
+                        {userDetails?.displayName}
                     </Typography>
                 </ListItem>
 

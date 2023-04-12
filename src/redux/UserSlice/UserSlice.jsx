@@ -2,15 +2,24 @@ import { createSlice } from "@reduxjs/toolkit";
 import { getUserProfileAction } from "./UserAysncThunk";
 import { setAuthError } from "utils/helper";
 const initialState = {
-    usersDetails: {},
+    userDetails: null,
     isLoading: false,
 }
 const slice = createSlice({
     name: 'users',
     initialState,
     reducers: {
+        setLoadingState(state, { payload }) {
+            state.isLoading = payload
+        },
+        loadUserData(state, { payload }) {
+            state.userDetails = { ...payload }
+        },
         resetErrorState(state) {
             state.error = ''
+        },
+        resetState(state) {
+            state.userDetails = null
         }
     },
     extraReducers: (builder) => {
