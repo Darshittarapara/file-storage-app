@@ -3,6 +3,7 @@ import Logo from 'components/Logo/Logo';
 import './SideBar.scss';
 import { AuthActions } from 'redux/AuthSlice/AuthSlice';
 import Box from '@mui/material/Box';
+import { logo } from 'layout/WithAuthLayout/WithAuthLayout'
 import IconButton from '@mui/material/IconButton';
 import List from '@mui/material/List';
 import ListItem from '@mui/material/ListItem';
@@ -10,7 +11,6 @@ import ListItemButton from '@mui/material/ListItemButton';
 import ListItemIcon from '@mui/material/ListItemIcon';
 import ListItemText from '@mui/material/ListItemText';
 import { Strings } from 'resource/Strings';
-import { logo } from 'screen/Auth/Login/Login';
 import { clearStorage } from 'utils/Storage';
 import { Home, PhotoAlbum, VideoFileSharp, DocumentScanner, CloseSharp, Person, LogoutSharp } from '@mui/icons-material';
 import { Avatar, Divider, Typography } from '@mui/material';
@@ -25,11 +25,12 @@ import { PREVIEW_THEME } from 'utils/const';
 import { signOut } from 'firebase/auth';
 import { auth } from 'FirebaseConfig/FireBaseConfig';
 import { UserActions } from 'redux/UserSlice/UserSlice';
+import { paths } from 'navigation/_path';
 
 const sidebarList = [
     {
         title: Strings.profile,
-        path: '/profile',
+        path: paths.profile,
         icon: Person
     },
     {
@@ -39,17 +40,17 @@ const sidebarList = [
     },
     {
         title: Strings.photos,
-        path: "/photo",
+        path: paths.photos,
         icon: PhotoAlbum
     },
     {
         title: Strings.videos,
-        path: "/videos",
+        path: paths.videos,
         icon: VideoFileSharp
     },
     {
         title: Strings.document,
-        path: "/document",
+        path: paths.document,
         icon: DocumentScanner
     }
 ]
@@ -60,11 +61,16 @@ export const SideBar = (props) => {
     const { userDetails } = useSelector((state) => state.UserStateData)
 
     const logOutHandler = async () => {
-        signOut(auth).then((res) => {
-            clearStorage();
-            dispatch(AuthActions.cancelAuth());
-            dispatch(UserActions.resetState())
-        })
+        clearStorage();
+        dispatch(AuthActions.cancelAuth());
+        dispatch(UserActions.resetState());
+        navigator("/")
+        // signOut(auth).then((res) => {
+        //     clearStorage();
+        //     dispatch(AuthActions.cancelAuth());
+        //     dispatch(UserActions.resetState());
+        //     navigator("/")
+        // })
     }
     const DrawerHeader = styled('div')(({ theme }) => ({
         display: 'flex',

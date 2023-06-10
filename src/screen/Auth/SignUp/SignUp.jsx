@@ -90,83 +90,81 @@ const SignUp = () => {
         {formik.errors.userName && formik.touched.userName && <ErrorMessage message={formik.errors.userName} />}
         {formik.errors.confirmPassword && formik.touched.confirmPassword && <ErrorMessage message={formik.errors.confirmPassword} />}
       </>}
-      <Logo src={logo} className="sign-up-logo" />
-      <div className="auth-contain">
-        <form onSubmit={formik.handleSubmit}>
-          <div className="image-container">
-            <div className="mb-0 mt-4 image-block">
-              <label className="form-label image-label" htmlFor="profilePicture">
-                <div className="edit-item-container">
-                  <EditIcon />
-                </div>
-                <Avatar
-                  alt="Remy Sharp"
-                  src={formik.values.profilePictureURL || initalUrl}
-                  sx={{ width: 100, height: 100, borderRadius: "0px" }}
-                  variant="dot"
-                />
-              </label>
-              <input
-                type="file"
-                id="profilePicture"
-                name="profilePictureFile"
-                accept=".jpg,.png,.jpeg"
-                placeholder="profilePicture"
-                onChange={(e) => handlerChange(e)}
-              />
-              <div className="close-item-container" onClick={resetImageState}>
-                <CloseIcon />
+
+      <form onSubmit={formik.handleSubmit}>
+        <div className="image-container">
+          <div className="mb-0 mt-4 image-block">
+            <label className="form-label image-label" htmlFor="profilePicture">
+              <div className="edit-item-container">
+                <EditIcon />
               </div>
+              <Avatar
+                alt="Remy Sharp"
+                src={formik.values.profilePictureURL || initalUrl}
+                sx={{ width: 100, height: 100, borderRadius: "0px" }}
+                variant="dot"
+              />
+            </label>
+            <input
+              type="file"
+              id="profilePicture"
+              name="profilePictureFile"
+              accept=".jpg,.png,.jpeg"
+              placeholder="profilePicture"
+              onChange={(e) => handlerChange(e)}
+            />
+            <div className="close-item-container" onClick={resetImageState}>
+              <CloseIcon />
             </div>
           </div>
+        </div>
 
-          <div className="mb-2 mt-2">
-            <Input
-              type="text"
-              name="userName"
-              placeholder={Strings.userName}
-              formilk={formik}
-              value={formik.values.userName}
-            />
-          </div>
+        <div className="mb-2 mt-2">
+          <Input
+            type="text"
+            name="userName"
+            placeholder={Strings.userName}
+            formilk={formik}
+            value={formik.values.userName}
+          />
+        </div>
 
-          <div className="mb-2">
-            <Input
-              type="email"
-              name="email"
-              formilk={formik}
-              value={formik.values.email}
-              placeholder={Strings.enterEmail}
-            />
-          </div>
-          <div className="mb-2">
-            <Input
-              type="password"
-              name="password"
-              formilk={formik}
-              value={formik.values.password}
-              placeholder={Strings.enterPin}
-            />
-          </div>
-          <div className="mb-2">
-            <Input
-              type="password"
-              name="confirmPassword"
-              formilk={formik}
-              value={formik.values.confirmPassword}
-              placeholder={Strings.enterConfirmPin}
-            />
-          </div>
-          <div className="mb-2 button-sign-up">
-            <Button disable={!formik.isValid || !formik.dirty || isLoading} type="submit" classes="authButton btn btn-primary">
-              {Strings.register}
-            </Button>
-          </div>
-          <div style={{ textAlign: "center" }}>
-            <NavLink to="/login">Already user</NavLink>
-          </div>
-        </form>
-      </div>
+        <div className="mb-2">
+          <Input
+            type="email"
+            name="email"
+            formilk={formik}
+            value={formik.values.email}
+            placeholder={Strings.enterEmail}
+          />
+        </div>
+        <div className="mb-2">
+          <Input
+            type="password"
+            name="password"
+            formilk={formik}
+            value={formik.values.password}
+            placeholder={Strings.enterPin}
+          />
+        </div>
+        <div className="mb-2">
+          <Input
+            type="password"
+            name="confirmPassword"
+            formilk={formik}
+            value={formik.values.confirmPassword}
+            placeholder={Strings.enterConfirmPin}
+          />
+        </div>
+        <div className="mb-2 button-sign-up">
+          <Button disable={!formik.isValid || !formik.dirty || isLoading} type="submit" classes="authButton btn btn-primary">
+            {Strings.register}
+          </Button>
+        </div>
+        <div style={{ textAlign: "center" }}>
+          <NavLink to="/">Already user</NavLink>
+        </div>
+      </form>
     </Fragment>
   );
 };

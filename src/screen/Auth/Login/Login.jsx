@@ -8,15 +8,12 @@ import { useFormik } from "formik";
 import { SignInPageSchema } from "utils/Validation";
 import { ErrorMessage } from "../../../components/ErrorMessage/ErrorMessage";
 import { Strings } from "resource/Strings";
-import logo from 'assets/image/logo.png';
-import Logo from "components/Logo/Logo";
 import { useDispatch, useSelector } from "react-redux";
 import { userSignInWithPasswordAction } from "redux/AuthSlice/AuthAysncThunk";
 import { useEffect } from "react";
 import { AuthActions } from "redux/AuthSlice/AuthSlice";
-export {
-  logo
-}
+import { paths } from "navigation/_path";
+
 const Login = () => {
   const navigate = useNavigate();
   const { isLoading, error } = useSelector((state) => state.AuthStateData);
@@ -43,51 +40,48 @@ const Login = () => {
 
   return (
     <Fragment>
-      <Logo src={logo} className="login-logo" />
-      <div className="auth-contain">
-        {error ? (
-          <ErrorMessage message={error} />
-        ) : <>
-          {formilk.errors.email && formilk.touched.email && <ErrorMessage message={formilk.errors.email} />}
-          {formilk.errors.password && formilk.touched.password && <ErrorMessage message={formilk.errors.password} />}
-        </>}
+      {error ? (
+        <ErrorMessage message={error} />
+      ) : <>
+        {formilk.errors.email && formilk.touched.email && <ErrorMessage message={formilk.errors.email} />}
+        {formilk.errors.password && formilk.touched.password && <ErrorMessage message={formilk.errors.password} />}
+      </>}
 
-        <form onSubmit={formilk.handleSubmit}>
-          <div className="mb-3">
+      <form onSubmit={formilk.handleSubmit}>
+        <div className="mb-3">
+          <Input
+            type="email"
+            id="email"
+            formilk={formilk}
+            name="email"
+            className="form-control"
+            placeholder={Strings.enterEmail}
+            value={formilk.values.email}
+          />
+          <div className="mb-1">
             <Input
-              type="email"
-              id="email"
+              type="password"
+              id="password"
               formilk={formilk}
-              name="email"
+              name="password"
               className="form-control"
-              placeholder={Strings.enterEmail}
-              value={formilk.values.email}
+              placeholder={Strings.enterPin}
+              value={formilk.values.password}
             />
-            <div className="mb-1">
-              <Input
-                type="password"
-                id="password"
-                formilk={formilk}
-                name="password"
-                className="form-control"
-                placeholder={Strings.enterPin}
-                value={formilk.values.password}
-              />
-            </div>
           </div>
-          <div className="mt-1 mb-2">
-            <Button disable={!formilk.isValid || !formilk.dirty || isLoading} type="submit" classes="authButton btn btn-primary">
-              {isLoading ? <div className="spinner-border" role="status" /> : Strings.logIn}
-            </Button>
-          </div>
-          <div style={{ textAlign: "center" }}>
-            <NavLink to="/loginWithEmail">{Strings.logInWithEmailVerification}</NavLink>
-          </div>
-          <div style={{ textAlign: "center" }}>
-            <NavLink to="/auth/signup">Register</NavLink>
-          </div>
-        </form>
-      </div>
+        </div>
+        <div className="mt-1 mb-2">
+          <Button disable={!formilk.isValid || !formilk.dirty || isLoading} type="submit" classes="authButton btn btn-primary">
+            {isLoading ? <div className="spinner-border" role="status" /> : Strings.logIn}
+          </Button>
+        </div>
+        <div style={{ textAlign: "center" }}>
+          <NavLink to="/loginWithEmail">{Strings.logInWithEmailVerification}</NavLink>
+        </div>
+        <div style={{ textAlign: "center" }}>
+          <NavLink to={paths.signUp}>Register</NavLink>
+        </div>
+      </form>
     </Fragment>
 
   );
