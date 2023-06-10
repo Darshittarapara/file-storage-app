@@ -43,10 +43,7 @@ const SignUp = () => {
       }
 
       dispatch(userSignUpAction(payload)).then((res) => {
-        if (res?.payload?.status) {
-          dispatch(AuthActions.signUp())
-          navigate('/')
-        }
+        console.log(res)
       })
     }
   });

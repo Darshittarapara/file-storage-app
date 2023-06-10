@@ -1,19 +1,28 @@
 import { createAsyncThunk } from "@reduxjs/toolkit";
-import { onAuthStateChanged } from "firebase/auth";
-import { auth } from "FirebaseConfig/FireBaseConfig";
+import { getAuth, onAuthStateChanged } from "firebase/auth";
+import { app } from "FirebaseConfig/FireBaseConfig";
 import { UserActions } from "./UserSlice";
+import { getItem } from "utils/Storage";
 
 export const getUserProfileAction = createAsyncThunk(
     "users/getUserProfileAction",
     async (payload, { dispatch }) => {
-        onAuthStateChanged(auth, (user) => {
-            dispatch(UserActions.setLoadingState(true));
+        const auth = getAuth(app);
+
+        onAuthStateChanged(auth, async (user) => {
+            await dispatch(UserActions.setLoadingState(true));
+            const payload = {
+                displayName: '',
+                photoURL: ''
+            }
             if (user) {
-                dispatch(UserActions.loadUserData({
-                    displayName: user.displayName,
-                    photoURL: user.photoURL
-                }))
-                dispatch(UserActions.setLoadingState(false));
+                payload.displayName = user?.displayName;
+                payload.photoURL = user?.photoURL
+                console.log(user);
+                console.log("user");
+                console.log(user.displayName);
+                await dispatch(UserActions.loadUserData(payload))
+                await dispatch(UserActions.setLoadingState(false));
             } else {
                 dispatch(UserActions.setLoadingState(false));
             }

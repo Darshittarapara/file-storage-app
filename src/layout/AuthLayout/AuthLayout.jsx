@@ -14,10 +14,11 @@ import { auth } from 'FirebaseConfig/FireBaseConfig';
 export const AuthLayout = ({
     component: Component
 }) => {
+    const { isLoading } = useSelector((state) => state.UserStateData)
     const { mode } = useSelector((state) => state.ToggleStateData)
     const [isToggleSideBar, setIsToggleSideBar] = useState(false);
     const dispatch = useDispatch()
-
+    console.log(isLoading)
     useEffect(() => {
         const currentWidth = window.innerWidth;
         if (currentWidth > 576) {
@@ -43,7 +44,7 @@ export const AuthLayout = ({
     return (
         <ThemeProvider theme={theme}>
             <CssBaseline />
-            {!auth.currentUser ? <Loader /> : (
+            {isLoading ? <Loader /> : (
                 <div className='main'>
                     <div className='row'>
                         <div className='col-md-3 col-lg-3 col-xl-3 col-3'>

@@ -11,15 +11,12 @@ export const userSignUpAction = createAsyncThunk(
         if (response?.user?.uid) {
             setItem(USER, response)
             setItem(USER_ID, response?.user?.uid)
-            dispatch(saveUserDetails({
-                currentUser: response?.user,
-                userId: response?.user?.uid,
-                userName: payload.displayName,
-                pictureURL: payload?.pictureURL
-            }))
-            return {
-                status: true
-            }
+            const updateProfileResponse = await response.user.updateProfile(response.user, {
+                displayName: payload.displayName,
+                photoURL: payload?.pictureURL
+            })
+            console.log(updateProfileResponse)
+
         }
         return {
             status: false
@@ -34,6 +31,8 @@ const saveUserDetails = createAsyncThunk(
             displayName: userName,
             photoURL: pictureURL
         }).then((res) => {
+            console.log(res)
+
         }).catch((error) => console.log(error))
     }
 )

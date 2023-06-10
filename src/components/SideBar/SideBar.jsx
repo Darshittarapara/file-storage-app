@@ -58,12 +58,13 @@ export const SideBar = (props) => {
     const navigator = useNavigate();
     const { mode } = useSelector((state) => state.ToggleStateData)
     const { userDetails } = useSelector((state) => state.UserStateData)
-
+    console.log(userDetails)
     const logOutHandler = async () => {
         signOut(auth).then((res) => {
             clearStorage();
             dispatch(AuthActions.cancelAuth());
-            dispatch(UserActions.resetState())
+            dispatch(UserActions.resetState());
+            navigator('/auth/login');
         })
     }
     const DrawerHeader = styled('div')(({ theme }) => ({
