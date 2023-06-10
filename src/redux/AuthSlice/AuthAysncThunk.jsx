@@ -4,6 +4,7 @@ import { createUserWithEmailAndPassword, signInWithEmailAndPassword, updateProfi
 import { auth, sendSignInLinkToEmail } from "FirebaseConfig/FireBaseConfig";
 import { setItem } from "utils/Storage";
 import { USER, USER_ID, VERIFY_EMAIL } from '../../utils/const.js'
+
 export const userSignUpAction = createAsyncThunk(
     "auth/userSignUpAction",
     async (payload, { dispatch }) => {
