@@ -11,6 +11,7 @@ import Toolbar from '@mui/material/Toolbar';
 import { useEffect } from 'react';
 import { Loader } from 'components/Loader/Loader';
 import { auth } from 'FirebaseConfig/FireBaseConfig';
+import { Outlet } from 'react-router-dom';
 export const AuthLayout = ({
     component: Component
 }) => {
@@ -62,7 +63,7 @@ export const AuthLayout = ({
                             )}
                         </div>
                         <div className={`col-12 col-md-9 col-xl-9 col-lg-9`}>
-                            <Component />
+                            <Outlet />
                         </div>
                     </div>
                 </div>
